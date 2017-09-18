@@ -1,7 +1,10 @@
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: {
+        typescript:"./src/index.tsx",
+        html:"./src/index.html"
+    },
     output: {
-        filename: "bundle.js",
+        filename: "[name].js",
         path: __dirname + "/dist"
     },
 
@@ -19,8 +22,12 @@ module.exports = {
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
-        ]
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+             {
+                test: /\.html$/,
+                loader: "file-loader?name=[name].[ext]",
+            }
+            ]           
     },
 
     // When importing a module whose path matches one of the following, just
@@ -30,5 +37,6 @@ module.exports = {
     externals: {
         "react": "React",
         "react-dom": "ReactDOM"
-    },
+    }
+
  };
